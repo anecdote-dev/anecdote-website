@@ -33,7 +33,7 @@ img{max-width:100%;display:block}
 
 /* atmosphere */
 #gl{position:fixed;inset:0;z-index:0;pointer-events:none}
-.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.07;mix-blend-mode:multiply;
+.grain{position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.07;will-change:transform;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain .5s steps(2) infinite}
 @keyframes grain{0%{transform:translate(0,0)}50%{transform:translate(-3px,2px)}100%{transform:translate(2px,-2px)}}
@@ -61,7 +61,7 @@ img{max-width:100%;display:block}
 
 /* ============================== NAV ============================== */
 nav{position:fixed;top:0;left:0;width:100%;z-index:70;padding:22px 0;transition:background .4s var(--ease),padding .4s,border-color .4s;border-bottom:1px solid transparent}
-nav.scrolled{background:rgba(234,229,220,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line-2);padding:13px 0}
+nav.scrolled{background:rgba(234,229,220,.85);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line-2);padding:13px 0}
 .nav-in{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{font-family:var(--f-disp);font-weight:500;font-size:24px;letter-spacing:-.01em;display:flex;align-items:baseline;gap:2px}
 .logo sup{font-size:10px;font-family:var(--f-ui);font-weight:600;top:-.9em}
@@ -628,6 +628,8 @@ function initThree(){
 
 function render(){
   if(!glOn) return;
+  /* perf: the GL canvas (z-index 0) is hidden behind opaque content past the hero — skip GPU work while it's off-screen */
+  if(window.scrollY > window.innerHeight*1.2){ return; }
   const t=clock.getElapsedTime();
   mouse.x+=(mouse.tx-mouse.x)*0.06; mouse.y+=(mouse.ty-mouse.y)*0.06;
   obj.userData.u.uTime.value=t;

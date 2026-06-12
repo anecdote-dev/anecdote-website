@@ -12,3 +12,7 @@ node_modules/
 
 # Local, machine-specific Claude Code settings (personal permissions)
 .claude/settings.local.json
+
+# Local preview helpers (dev only, not part of the deployed site)
+.claude/launch.json
+.claude/preview-server.mjs

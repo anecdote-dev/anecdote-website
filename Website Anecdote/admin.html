@@ -164,5 +164,12 @@ document.getElementById('fileIn').onchange=e=>{const f=e.target.files[0];if(!f)r
 // try to load existing content.json (works when served over http, e.g. on Vercel)
 (async()=>{try{const r=await fetch('content.json?_='+Date.now());if(r.ok){data=merge(DEFAULT,await r.json());}}catch(e){}render();})();
 </script>
+
+<!-- Vercel Speed Insights -->
+<script>
+  window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
 </body>
 </html>

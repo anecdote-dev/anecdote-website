@@ -1,0 +1,14 @@
+# Secrets — never commit the live API key
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# OS / editor cruft
+.DS_Store
+*.log
+
+# Local, machine-specific Claude Code settings (personal permissions)
+.claude/settings.local.json

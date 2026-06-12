@@ -1,0 +1,200 @@
+{
+  "hero": {
+    "metaLeft": "VOL. 01 — FULL-SERVICE DIGITAL MARKETING",
+    "metaRight": "JAKARTA · INDONESIA",
+    "line1": "We make brands",
+    "line2": "impossible",
+    "line3": "to ignore.",
+    "deck": "Personalized, full-service digital marketing — engineered in Jakarta, felt everywhere. We turn attention into measurable growth.",
+    "cta1": "See the Work →",
+    "cta2": "What We Do",
+    "stats": [
+      {
+        "value": "Est. 2019",
+        "label": "Studio"
+      },
+      {
+        "value": "150+",
+        "label": "Campaigns"
+      },
+      {
+        "value": "50+",
+        "label": "Brands"
+      }
+    ]
+  },
+  "marquee": [
+    "Meta Ads",
+    "Social",
+    "Branding",
+    "SEO",
+    "Content",
+    "E-commerce",
+    "Web",
+    "Influencer"
+  ],
+  "manifesto": "Attention is the rarest thing on earth. We *capture* it, refine it, and hand it back to you as growth.",
+  "services": {
+    "title": "What we do",
+    "items": [
+      {
+        "title": "Digital Advertising",
+        "tag": "Performance, engineered.",
+        "list": [
+          "Meta Ads",
+          "Search (SEM)",
+          "SEO",
+          "E-commerce Advertising",
+          "Email Marketing"
+        ]
+      },
+      {
+        "title": "Brand Communication",
+        "tag": "Stories that compound.",
+        "list": [
+          "Social Media Management",
+          "Photography",
+          "Video Production",
+          "Branding",
+          "Live Shopping"
+        ]
+      },
+      {
+        "title": "Consulting & PR",
+        "tag": "Reputation as an asset.",
+        "list": [
+          "Influencer Management",
+          "Online Reputation Management",
+          "Marketing Strategy"
+        ]
+      }
+    ]
+  },
+  "work": {
+    "items": [
+      {
+        "sector": "Health & Beauty",
+        "metric": "+312%",
+        "note": "Return on ad spend, delivered in the first 90 days."
+      },
+      {
+        "sector": "Food & Beverage",
+        "metric": "4.2M",
+        "note": "Organic reach from a single, tightly art-directed campaign."
+      },
+      {
+        "sector": "Property",
+        "metric": "−47%",
+        "note": "Cost-per-lead, cut while volume climbed."
+      },
+      {
+        "sector": "Retail",
+        "metric": "72h",
+        "note": "From launch to sold-out — momentum, engineered."
+      }
+    ]
+  },
+  "stats": [
+    {
+      "count": 150,
+      "suffix": "+",
+      "label": "Campaigns"
+    },
+    {
+      "count": 50,
+      "suffix": "+",
+      "label": "Clients"
+    },
+    {
+      "count": 5,
+      "suffix": "+",
+      "label": "Years"
+    },
+    {
+      "count": 3,
+      "suffix": "",
+      "label": "Service Pillars"
+    }
+  ],
+  "process": {
+    "items": [
+      {
+        "k": "01",
+        "title": "Extract",
+        "text": "We dig into your market, your data, and your audience until the real opportunity surfaces."
+      },
+      {
+        "k": "02",
+        "title": "Define",
+        "text": "Strategy and creative concepting, sharpened until the idea is unmistakable."
+      },
+      {
+        "k": "03",
+        "title": "Build",
+        "text": "Campaigns built, shipped, and fully instrumented across every channel that matters."
+      },
+      {
+        "k": "04",
+        "title": "Refine",
+        "text": "Relentless optimization toward measurable, compounding growth. Never set-and-forget."
+      }
+    ]
+  },
+  "clients": [
+    {
+      "name": "CDR Bayer",
+      "mark": "CB"
+    },
+    {
+      "name": "Redoxon",
+      "mark": "RX"
+    },
+    {
+      "name": "Polytron",
+      "mark": "PT"
+    },
+    {
+      "name": "UOB Bank",
+      "mark": "UO"
+    },
+    {
+      "name": "Sari Rasa",
+      "mark": "SR"
+    },
+    {
+      "name": "Nusantara",
+      "mark": "NC"
+    },
+    {
+      "name": "Batik Prima",
+      "mark": "BP"
+    },
+    {
+      "name": "Kopi Lokal",
+      "mark": "KL"
+    },
+    {
+      "name": "Garda Tekno",
+      "mark": "GT"
+    },
+    {
+      "name": "Mega Retail",
+      "mark": "MR"
+    }
+  ],
+  "testimonial": {
+    "quote": "They didn't just run our ads — they *reshaped* how the market sees us.",
+    "author": "Marketing Lead · Enterprise Client",
+    "note": "Representative placeholder — swap for a real attributed client quote before launch."
+  },
+  "contact": {
+    "title": "Ready to *grow?*",
+    "email": "hello@anecdote.id",
+    "whatsappLabel": "Chat with us",
+    "whatsapp": "6281234567890",
+    "instagram": "anecdote.id"
+  },
+  "footer": {
+    "colophon": "Crafted, not templated. A full-service digital marketing studio in Jakarta."
+  }
+}

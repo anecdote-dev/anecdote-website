@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anecdote — Content Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#EAE5DC;--paper2:#E1DACE;--card:#F1ECE3;--ink:#191713;--ink2:#46423A;--stone:#8C857A;--clay:#B26B3F;--line:rgba(25,23,19,.16);--line2:rgba(25,23,19,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;line-height:1.5;padding-bottom:80px}
+h1,h2,.serif{font-family:'Fraunces',serif;font-weight:400}
+.bar{position:sticky;top:0;z-index:10;background:rgba(234,229,220,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:16px 0}
+.bar .in{max-width:880px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.bar h1{font-size:24px;letter-spacing:-.01em}
+.bar .sp{flex:1}
+.btn{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:100px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:.2s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--clay);border-color:var(--clay);color:#fff}
+.btn.primary:hover{background:var(--ink);border-color:var(--ink)}
+.wrap{max-width:880px;margin:26px auto 0;padding:0 24px}
+.note{background:var(--card);border:1px solid var(--line2);border-left:3px solid var(--clay);border-radius:6px;padding:16px 18px;font-size:13.5px;color:var(--ink2);margin-bottom:26px}
+.note b{color:var(--ink)}
+.sec{border:1px solid var(--line);border-radius:10px;background:var(--card);margin-bottom:18px;overflow:hidden}
+.sec>h2{font-size:22px;padding:18px 22px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:12px}
+.sec>h2 .no{font-size:13px;color:var(--clay);font-family:'Archivo';font-weight:700}
+.secbody{padding:18px 22px}
+.fld{margin-bottom:16px}
+.fld:last-child{margin-bottom:0}
+.lbl{display:block;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin-bottom:7px}
+input[type=text],input[type=number],textarea{width:100%;font-family:'Archivo';font-size:15px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:10px 12px;transition:border-color .2s}
+input:focus,textarea:focus{outline:none;border-color:var(--clay)}
+textarea{resize:vertical;min-height:64px;line-height:1.5}
+.listta{min-height:96px;font-family:ui-monospace,monospace;font-size:13.5px}
+.hint{font-size:11px;color:var(--stone);margin-top:5px}
+.objlist{display:flex;flex-direction:column;gap:14px}
+.olcard{border:1px solid var(--line2);border-left:3px solid var(--clay);border-radius:8px;padding:14px 16px;background:var(--paper)}
+.olhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.olnum{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--stone)}
+.mini{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid var(--line);background:transparent;color:var(--ink2);cursor:pointer}
+.mini:hover{border-color:var(--clay);color:var(--clay)}
+.mini.add{align-self:flex-start;margin-top:4px}
+.foot{max-width:880px;margin:30px auto 0;padding:0 24px;font-size:12px;color:var(--stone)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:100px;font-size:13px;opacity:0;transition:.3s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="bar"><div class="in">
+  <h1>Anecdote <span class="serif" style="font-style:italic;color:var(--clay)">admin</span></h1>
+  <span class="sp"></span>
+  <button class="btn" id="importBtn">Import</button>
+  <button class="btn" id="resetBtn">Reset</button>
+  <button class="btn primary" id="dlBtn">Download content.json</button>
+  <input type="file" id="fileIn" accept="application/json,.json" hidden>
+</div></div>
+
+<div class="wrap">
+  <div class="note">
+    <b>How this works.</b> Edit any section below, then click <b>Download content.json</b>. Replace the old <code>content.json</code> in your repo (or re-upload to GitHub) and your live site updates automatically.<br><br>
+    Tip: wrap a word in <b>*asterisks*</b> to make it the italic accent colour (used in the manifesto, testimonial and contact heading).
+  </div>
+  <div id="form"></div>
+</div>
+<div class="foot">Changes here only affect the downloaded <code>content.json</code> — nothing is saved until you download and deploy it.</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT={"hero": {"metaLeft": "VOL. 01 — FULL-SERVICE DIGITAL MARKETING", "metaRight": "JAKARTA · INDONESIA", "line1": "We make brands", "line2": "impossible", "line3": "to ignore.", "deck": "Personalized, full-service digital marketing — engineered in Jakarta, felt everywhere. We turn attention into measurable growth.", "cta1": "See the Work →", "cta2": "What We Do", "stats": [{"value": "Est. 2019", "label": "Studio"}, {"value": "150+", "label": "Campaigns"}, {"value": "50+", "label": "Brands"}]}, "marquee": ["Meta Ads", "Social", "Branding", "SEO", "Content", "E-commerce", "Web", "Influencer"], "manifesto": "Attention is the rarest thing on earth. We *capture* it, refine it, and hand it back to you as growth.", "services": {"title": "What we do", "items": [{"title": "Digital Advertising", "tag": "Performance, engineered.", "list": ["Meta Ads", "Search (SEM)", "SEO", "E-commerce Advertising", "Email Marketing"]}, {"title": "Brand Communication", "tag": "Stories that compound.", "list": ["Social Media Management", "Photography", "Video Production", "Branding", "Live Shopping"]}, {"title": "Consulting & PR", "tag": "Reputation as an asset.", "list": ["Influencer Management", "Online Reputation Management", "Marketing Strategy"]}]}, "work": {"items": [{"sector": "Health & Beauty", "metric": "+312%", "note": "Return on ad spend, delivered in the first 90 days."}, {"sector": "Food & Beverage", "metric": "4.2M", "note": "Organic reach from a single, tightly art-directed campaign."}, {"sector": "Property", "metric": "−47%", "note": "Cost-per-lead, cut while volume climbed."}, {"sector": "Retail", "metric": "72h", "note": "From launch to sold-out — momentum, engineered."}]}, "stats": [{"count": 150, "suffix": "+", "label": "Campaigns"}, {"count": 50, "suffix": "+", "label": "Clients"}, {"count": 5, "suffix": "+", "label": "Years"}, {"count": 3, "suffix": "", "label": "Service Pillars"}], "process": {"items": [{"k": "01", "title": "Extract", "text": "We dig into your market, your data, and your audience until the real opportunity surfaces."}, {"k": "02", "title": "Define", "text": "Strategy and creative concepting, sharpened until the idea is unmistakable."}, {"k": "03", "title": "Build", "text": "Campaigns built, shipped, and fully instrumented across every channel that matters."}, {"k": "04", "title": "Refine", "text": "Relentless optimization toward measurable, compounding growth. Never set-and-forget."}]}, "clients": [{"name": "CDR Bayer", "mark": "CB"}, {"name": "Redoxon", "mark": "RX"}, {"name": "Polytron", "mark": "PT"}, {"name": "UOB Bank", "mark": "UO"}, {"name": "Sari Rasa", "mark": "SR"}, {"name": "Nusantara", "mark": "NC"}, {"name": "Batik Prima", "mark": "BP"}, {"name": "Kopi Lokal", "mark": "KL"}, {"name": "Garda Tekno", "mark": "GT"}, {"name": "Mega Retail", "mark": "MR"}], "testimonial": {"quote": "They didn't just run our ads — they *reshaped* how the market sees us.", "author": "Marketing Lead · Enterprise Client", "note": "Representative placeholder — swap for a real attributed client quote before launch."}, "contact": {"title": "Ready to *grow?*", "email": "hello@anecdote.id", "whatsappLabel": "Chat with us", "whatsapp": "6281234567890", "instagram": "anecdote.id"}, "footer": {"colophon": "Crafted, not templated. A full-service digital marketing studio in Jakarta."}};
+let data=clone(DEFAULT);
+function clone(o){return JSON.parse(JSON.stringify(o));}
+function merge(a,b){ if(b===null||typeof b!=='object'||Array.isArray(b))return b===undefined?a:b; const o=Object.assign({},a); for(const k in b)o[k]=(a&&k in a)?merge(a[k],b[k]):b[k]; return o; }
+
+const SCHEMA=[
+ {t:'Hero',f:[
+   {p:'hero.metaLeft',l:'Top-left label'},
+   {p:'hero.metaRight',l:'Top-right label'},
+   {p:'hero.line1',l:'Headline — line 1'},
+   {p:'hero.line2',l:'Headline — line 2 (italic accent)'},
+   {p:'hero.line3',l:'Headline — line 3'},
+   {p:'hero.deck',l:'Intro paragraph',type:'textarea'},
+   {p:'hero.cta1',l:'Button 1 text'},
+   {p:'hero.cta2',l:'Button 2 text'},
+   {p:'hero.stats',l:'Hero stat badges',type:'objlist',fields:[{k:'value',l:'Value'},{k:'label',l:'Label'}]},
+ ]},
+ {t:'Ticker',f:[{p:'marquee',l:'Scrolling words',type:'list'}]},
+ {t:'Manifesto',f:[{p:'manifesto',l:'Statement (use *asterisks* for accent)',type:'textarea'}]},
+ {t:'Services',f:[
+   {p:'services.title',l:'Section title'},
+   {p:'services.items',l:'Service pillars',type:'objlist',fields:[{k:'title',l:'Title'},{k:'tag',l:'Tagline'},{k:'list',l:'Services',type:'list'}]},
+ ]},
+ {t:'Selected Work',f:[{p:'work.items',l:'Case studies',type:'objlist',fields:[{k:'sector',l:'Sector'},{k:'metric',l:'Big metric'},{k:'note',l:'Note',type:'textarea'}]}]},
+ {t:'By the Numbers',f:[{p:'stats',l:'Counters',type:'objlist',fields:[{k:'count',l:'Number',type:'number'},{k:'suffix',l:'Suffix (e.g. +)'},{k:'label',l:'Label'}]}]},
+ {t:'Process',f:[{p:'process.items',l:'Steps',type:'objlist',fields:[{k:'k',l:'No.'},{k:'title',l:'Title'},{k:'text',l:'Description',type:'textarea'}]}]},
+ {t:'Clients',f:[{p:'clients',l:'Client badges',type:'objlist',fields:[{k:'name',l:'Name'},{k:'mark',l:'Monogram (2 letters)'}]}]},
+ {t:'Testimonial',f:[
+   {p:'testimonial.quote',l:'Quote (use *asterisks* for accent)',type:'textarea'},
+   {p:'testimonial.author',l:'Attribution'},
+   {p:'testimonial.note',l:'Small note (blank = hidden)'},
+ ]},
+ {t:'Contact',f:[
+   {p:'contact.title',l:'Heading (use *asterisks* for accent)'},
+   {p:'contact.email',l:'Email address'},
+   {p:'contact.whatsappLabel',l:'WhatsApp link text'},
+   {p:'contact.whatsapp',l:'WhatsApp number (e.g. 6281234567890)'},
+   {p:'contact.instagram',l:'Instagram handle (no @)'},
+ ]},
+ {t:'Footer',f:[{p:'footer.colophon',l:'Colophon line'}]},
+];
+
+function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+function resolve(path){const parts=path.split('.');let o=data;for(let i=0;i<parts.length-1;i++){if(o[parts[i]]==null)o[parts[i]]={};o=o[parts[i]];}return [o,parts[parts.length-1]];}
+function blank(fields){const o={};fields.forEach(f=>o[f.k]=f.type==='list'?[]:f.type==='number'?0:'');return o;}
+
+function control(obj,key,def){
+  const w=el('div','fld'); w.append(el('label','lbl',def.l));
+  const t=def.type||'text';
+  if(t==='textarea'){const ta=el('textarea');ta.value=obj[key]||'';ta.oninput=()=>obj[key]=ta.value;w.append(ta);}
+  else if(t==='number'){const i=el('input');i.type='number';i.value=obj[key]!=null?obj[key]:0;i.oninput=()=>obj[key]=Number(i.value);w.append(i);}
+  else if(t==='list'){const ta=el('textarea','listta');ta.value=(obj[key]||[]).join('\n');ta.oninput=()=>obj[key]=ta.value.split('\n').map(s=>s.trim()).filter(Boolean);w.append(ta);w.append(el('div','hint','One item per line'));}
+  else if(t==='objlist'){w.append(objlist(obj,key,def));}
+  else{const i=el('input');i.type='text';i.value=obj[key]||'';i.oninput=()=>obj[key]=i.value;w.append(i);}
+  return w;
+}
+function objlist(parent,key,def){
+  const box=el('div','objlist');
+  function draw(){
+    box.innerHTML='';
+    (parent[key]||[]).forEach((item,idx)=>{
+      const c=el('div','olcard');
+      const head=el('div','olhead');head.append(el('span','olnum','# '+(idx+1)));
+      const rm=el('button','mini','Remove');rm.onclick=()=>{parent[key].splice(idx,1);draw();};head.append(rm);
+      c.append(head);
+      def.fields.forEach(f=>c.append(control(item,f.k,f)));
+      box.append(c);
+    });
+    const add=el('button','mini add','+ Add');add.onclick=()=>{parent[key]=parent[key]||[];parent[key].push(blank(def.fields));draw();};
+    box.append(add);
+  }
+  draw();return box;
+}
+function render(){
+  const root=document.getElementById('form');root.innerHTML='';
+  SCHEMA.forEach((s,i)=>{
+    const sec=el('div','sec');
+    const h=el('h2');h.append(el('span','no',String(i+1).padStart(2,'0')));h.append(document.createTextNode(s.t));
+    sec.append(h);
+    const body=el('div','secbody');
+    s.f.forEach(def=>{const [o,k]=resolve(def.p);body.append(control(o,k,def));});
+    sec.append(body);root.append(sec);
+  });
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1800);}
+function download(){
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='content.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('content.json downloaded');
+}
+document.getElementById('dlBtn').onclick=download;
+document.getElementById('resetBtn').onclick=()=>{if(confirm('Reset all fields to the original content?')){data=clone(DEFAULT);render();toast('Reset to defaults');}};
+document.getElementById('importBtn').onclick=()=>document.getElementById('fileIn').click();
+document.getElementById('fileIn').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{data=merge(DEFAULT,JSON.parse(r.result));render();toast('Imported');}catch(err){alert('Could not read that file: '+err.message);}};r.readAsText(f);};
+
+// try to load existing content.json (works when served over http, e.g. on Vercel)
+(async()=>{try{const r=await fetch('content.json?_='+Date.now());if(r.ok){data=merge(DEFAULT,await r.json());}}catch(e){}render();})();
+</script>
+</body>
+</html>

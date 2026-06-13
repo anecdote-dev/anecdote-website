@@ -14,6 +14,10 @@ h1,h2,.serif{font-family:'Fraunces',serif;font-weight:400}
 .bar .in{max-width:880px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .bar h1{font-size:24px;letter-spacing:-.01em}
 .bar .sp{flex:1}
+.secnav{display:flex;flex-wrap:wrap;gap:7px;max-width:880px;margin:12px auto 0;padding:0 24px}
+.secnav button{font-family:'Archivo';font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:6px 11px;border-radius:100px;border:1px solid var(--line);background:var(--paper);color:var(--ink2);cursor:pointer;transition:.18s;white-space:nowrap}
+.secnav button:hover{border-color:var(--clay);color:var(--clay)}
+.secnav button.active{background:var(--clay);border-color:var(--clay);color:#fff}
 .btn{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:11px 18px;border-radius:100px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:.2s}
 .btn:hover{background:var(--ink);color:var(--paper)}
 .btn.primary{background:var(--clay);border-color:var(--clay);color:#fff}
@@ -53,7 +57,9 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
   <button class="btn" id="resetBtn">Reset</button>
   <button class="btn primary" id="dlBtn">Download content.json</button>
   <input type="file" id="fileIn" accept="application/json,.json" hidden>
-</div></div>
+</div>
+<div class="secnav" id="secnav"></div>
+</div>
 
 <div class="wrap">
   <div class="note">
@@ -142,13 +148,30 @@ function objlist(parent,key,def){
 function render(){
   const root=document.getElementById('form');root.innerHTML='';
   SCHEMA.forEach((s,i)=>{
-    const sec=el('div','sec');
+    const sec=el('div','sec');sec.id='sec'+i;
     const h=el('h2');h.append(el('span','no',String(i+1).padStart(2,'0')));h.append(document.createTextNode(s.t));
     sec.append(h);
     const body=el('div','secbody');
     s.f.forEach(def=>{const [o,k]=resolve(def.p);body.append(control(o,k,def));});
     sec.append(body);root.append(sec);
   });
+  buildNav();
+}
+let _spyHandler=null;
+function buildNav(){
+  const nav=document.getElementById('secnav');if(!nav)return;nav.innerHTML='';
+  const bar=document.querySelector('.bar');
+  SCHEMA.forEach((s,i)=>{
+    const b=el('button',null,s.t);b.dataset.i=i;
+    b.onclick=()=>{const sec=document.getElementById('sec'+i);if(!sec)return;[...nav.children].forEach(c=>c.classList.toggle('active',c===b));const y=sec.getBoundingClientRect().top+window.scrollY-bar.offsetHeight-12;window.scrollTo({top:y,behavior:'smooth'});};
+    nav.append(b);
+  });
+  const chips=[...nav.children];
+  function update(){const barB=bar.offsetHeight+24;let curr=0;SCHEMA.forEach((s,i)=>{const sec=document.getElementById('sec'+i);if(sec&&sec.getBoundingClientRect().top<=barB)curr=i;});chips.forEach(c=>c.classList.toggle('active',+c.dataset.i===curr));}
+  if(_spyHandler)window.removeEventListener('scroll',_spyHandler);
+  _spyHandler=()=>requestAnimationFrame(update);
+  window.addEventListener('scroll',_spyHandler,{passive:true});
+  update();
 }
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),1800);}
 function download(){

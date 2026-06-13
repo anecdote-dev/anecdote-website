@@ -22,6 +22,7 @@ h1,h2,.serif{font-family:'Fraunces',serif;font-weight:400}
 .btn:hover{background:var(--ink);color:var(--paper)}
 .btn.primary{background:var(--clay);border-color:var(--clay);color:#fff}
 .btn.primary:hover{background:var(--ink);border-color:var(--ink)}
+.btn:disabled{opacity:.5;cursor:default;pointer-events:none}
 .wrap{max-width:880px;margin:26px auto 0;padding:0 24px}
 .note{background:var(--card);border:1px solid var(--line2);border-left:3px solid var(--clay);border-radius:6px;padding:16px 18px;font-size:13.5px;color:var(--ink2);margin-bottom:26px}
 .note b{color:var(--ink)}
@@ -55,7 +56,8 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
   <span class="sp"></span>
   <button class="btn" id="importBtn">Import</button>
   <button class="btn" id="resetBtn">Reset</button>
-  <button class="btn primary" id="dlBtn">Download content.json</button>
+  <button class="btn" id="dlBtn">Download</button>
+  <button class="btn primary" id="pubBtn">Publish to site</button>
   <input type="file" id="fileIn" accept="application/json,.json" hidden>
 </div>
 <div class="secnav" id="secnav"></div>
@@ -63,7 +65,7 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 
 <div class="wrap">
   <div class="note">
-    <b>How this works.</b> Edit any section below, then click <b>Download content.json</b>. Replace the old <code>content.json</code> in your repo (or re-upload to GitHub) and your live site updates automatically.<br><br>
+    <b>How this works.</b> Edit any section below, then click <b>Publish to site</b> — your changes go live in about 30 seconds (you'll be asked for the publish password the first time). Prefer to do it manually? <b>Download</b> saves a <code>content.json</code> you can upload to GitHub yourself.<br><br>
     Tip: wrap a word in <b>*asterisks*</b> to make it the italic accent colour (used in the manifesto, testimonial and contact heading).
   </div>
   <div id="form"></div>
@@ -180,6 +182,20 @@ function download(){
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('content.json downloaded');
 }
 document.getElementById('dlBtn').onclick=download;
+async function publish(){
+  const btn=document.getElementById('pubBtn');
+  let pw=sessionStorage.getItem('pubpw')||prompt('Publish password:');
+  if(!pw)return;
+  btn.disabled=true;const old=btn.textContent;btn.textContent='Publishing…';
+  try{
+    const r=await fetch('/api/publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw,content:data})});
+    const j=await r.json().catch(()=>({}));
+    if(r.ok){sessionStorage.setItem('pubpw',pw);toast('Published — live in ~30s');}
+    else{if(r.status===401)sessionStorage.removeItem('pubpw');toast('Could not publish: '+(j.error||('HTTP '+r.status)));}
+  }catch(e){toast('Could not publish: '+e.message);}
+  finally{btn.disabled=false;btn.textContent=old;}
+}
+document.getElementById('pubBtn').onclick=publish;
 document.getElementById('resetBtn').onclick=()=>{if(confirm('Reset all fields to the original content?')){data=clone(DEFAULT);render();toast('Reset to defaults');}};
 document.getElementById('importBtn').onclick=()=>document.getElementById('fileIn').click();
 document.getElementById('fileIn').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{data=merge(DEFAULT,JSON.parse(r.result));render();toast('Imported');}catch(err){alert('Could not read that file: '+err.message);}};r.readAsText(f);};

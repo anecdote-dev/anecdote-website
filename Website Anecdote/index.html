@@ -55,6 +55,8 @@ img{max-width:100%;display:block}
 .pre-w{font-family:var(--f-disp);font-style:italic;font-weight:400;font-size:clamp(40px,8vw,96px);overflow:hidden;display:flex}
 .pre-w span{display:inline-block;opacity:0;transform:translateY(110%);animation:rise .8s var(--ease) forwards}
 @keyframes rise{to{opacity:1;transform:translateY(0)}}
+.pre-logo{height:clamp(40px,7.5vw,78px);width:auto;transform:translateY(115%);animation:preLogo .9s var(--ease) .2s forwards}
+@keyframes preLogo{to{transform:translateY(0)}}
 .pre-meter{width:min(320px,60vw);height:1px;background:var(--line);margin-top:26px;overflow:hidden}
 .pre-meter i{display:block;height:100%;width:0;background:var(--clay);transition:width .3s var(--ease)}
 .pre-cap{font-size:10px;letter-spacing:.3em;color:var(--stone);text-transform:uppercase;margin-top:14px}
@@ -523,7 +525,9 @@ async function loadContent(){ let c=DEFAULT; try{ const r=await fetch('content.j
 
 /* preloader */
 const bar=document.getElementById('preBar'), preW=document.getElementById('preW');
-'Anecdote'.split('').forEach((ch,i)=>{const s=document.createElement('span');s.textContent=ch;s.style.animationDelay=(0.15+i*0.05)+'s';preW.appendChild(s);});
+const __pl=document.querySelector('.logo-img');
+if(__pl){const im=new Image();im.src=__pl.src;im.alt='Anecdote';im.className='pre-logo';preW.appendChild(im);}
+else{preW.textContent='Anecdote';preW.style.fontStyle='italic';}
 let prog=0; const setProg=v=>{prog=Math.max(prog,v);bar.style.width=Math.min(prog,100)+'%';};
 const hidePre=()=>document.getElementById('pre').classList.add('done');
 

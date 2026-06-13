@@ -654,7 +654,7 @@ function boot(){
   setProg(40); const ok=initThree(); setProg(80);
   let lenis=null;
   if(!reduce){
-    lenis=new Lenis({duration:1.25, easing:t=>1-Math.pow(1-t,4), smoothWheel:true, wheelMultiplier:1.05, touchMultiplier:1.6});
+    lenis=new Lenis({duration:0.8, easing:t=>1-Math.pow(1-t,3), smoothWheel:true, wheelMultiplier:1, touchMultiplier:1.6});
     lenis.on('scroll',ScrollTrigger.update);
     gsap.ticker.add(t=>{lenis.raf(t*1000);render();});
     gsap.ticker.lagSmoothing(0);

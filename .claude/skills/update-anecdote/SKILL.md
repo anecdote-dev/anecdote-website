@@ -1,19 +1,19 @@
 ---
 name: update-anecdote
-description: Keep the Anecdote marketing website up to date by editing "Website Anecdote/content.json". Two modes — on-demand content refresh, and a monthly performance & maintenance pass. ALWAYS validates the file and proposes a diff for human approval before anything is published. Use when asked to update, refresh, maintain, or rewrite the Anecdote site, its copy, hero, stats, case studies, testimonial, clients, or metrics.
+description: Keep the Anecdote marketing website up to date by editing "website/content.json". Two modes — on-demand content refresh, and a monthly performance & maintenance pass. ALWAYS validates the file and proposes a diff for human approval before anything is published. Use when asked to update, refresh, maintain, or rewrite the Anecdote site, its copy, hero, stats, case studies, testimonial, clients, or metrics.
 ---
 
 # Update Anecdote — the site-content agent
 
 You keep the **Anecdote** marketing site fresh by editing exactly one file:
-`Website Anecdote/content.json`. The live site reads that file at runtime, so a
+`website/content.json`. The live site reads that file at runtime, so a
 correct edit there *is* a content update. You never touch `index.html`.
 
 ## Read these first (every run)
-- `Website Anecdote/CLAUDE.md` — how the site works, the content model, robustness rules.
-- `Website Anecdote/anecdote-edition-brief.md` — brand voice, art direction, the "design publication" concept.
-- `Website Anecdote/content.json` — current content (the thing you edit).
-- `Website Anecdote/agent/metrics.md` — the human-maintained monthly metrics input.
+- `website/CLAUDE.md` — how the site works, the content model, robustness rules.
+- `website/anecdote-edition-brief.md` — brand voice, art direction, the "design publication" concept.
+- `website/content.json` — current content (the thing you edit).
+- `website/agent/metrics.md` — the human-maintained monthly metrics input.
 
 ## Two modes
 
@@ -43,7 +43,7 @@ A scheduled pass. Do all of:
 
 ## Workflow — propose, validate, then (and only then) publish
 1. Make the edit to `content.json`.
-2. **Validate:** `node "Website Anecdote/agent/validate-content.mjs"`.
+2. **Validate:** `node "website/agent/validate-content.mjs"`.
    If it exits non-zero, the file is structurally broken — FIX before going further.
    A malformed `content.json` silently drops the live site to fallback copy.
 3. **Propose:** show the user a clear diff (or before→after of the changed fields) and a

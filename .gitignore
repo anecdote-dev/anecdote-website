@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
+vercel-env.txt
 
 # Dependencies
 node_modules/

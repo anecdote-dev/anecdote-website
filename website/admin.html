@@ -48,9 +48,25 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 .foot{max-width:880px;margin:30px auto 0;padding:0 24px;font-size:12px;color:var(--stone)}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:100px;font-size:13px;opacity:0;transition:.3s;pointer-events:none}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.login{position:fixed;inset:0;z-index:200;background:var(--paper);display:flex;align-items:center;justify-content:center;padding:24px}
+.login.hidden{display:none}
+.login .card{width:min(360px,100%);text-align:center}
+.login h2{font-size:30px;margin-bottom:6px}
+.login p{font-size:13px;color:var(--ink2);margin-bottom:22px}
+.login input{width:100%;text-align:center;margin-bottom:12px}
+.login .err{color:var(--clay);font-size:12px;min-height:16px;margin-bottom:10px}
 </style>
 </head>
 <body>
+<div class="login" id="login">
+  <div class="card">
+    <h2>Anecdote <span class="serif" style="font-style:italic;color:var(--clay)">admin</span></h2>
+    <p>Enter your password to manage the site.</p>
+    <input type="password" id="loginPw" placeholder="Password" autocomplete="current-password">
+    <div class="err" id="loginErr"></div>
+    <button class="btn primary" id="loginBtn" style="width:100%">Log in</button>
+  </div>
+</div>
 <div class="bar"><div class="in">
   <h1>Anecdote <span class="serif" style="font-style:italic;color:var(--clay)">admin</span></h1>
   <span class="sp"></span>
@@ -65,12 +81,12 @@ textarea{resize:vertical;min-height:64px;line-height:1.5}
 
 <div class="wrap">
   <div class="note">
-    <b>How this works.</b> Edit any section below, then click <b>Publish to site</b> — your changes go live in about 30 seconds (the first time, you'll paste a GitHub token; it's kept only in this browser tab). Prefer to do it manually? <b>Download</b> saves a <code>content.json</code> you can upload to GitHub yourself.<br><br>
+    <b>How this works.</b> Edit any section below, then click <b>Publish to site</b> — your changes go live in about 30 seconds. No files, no GitHub, no token. (<b>Download</b> still gives you a manual <code>content.json</code> backup if you ever want one.)<br><br>
     Tip: wrap a word in <b>*asterisks*</b> to make it the italic accent colour (used in the manifesto, testimonial and contact heading).
   </div>
   <div id="form"></div>
 </div>
-<div class="foot">Changes here only affect the downloaded <code>content.json</code> — nothing is saved until you download and deploy it.</div>
+<div class="foot"><b>Publish to site</b> commits <code>content.json</code> and redeploys automatically. Log out by closing this tab.</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -182,25 +198,42 @@ function download(){
   setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('content.json downloaded');
 }
 document.getElementById('dlBtn').onclick=download;
+async function api(payload){
+  const r=await fetch('/api/publish',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const j=await r.json().catch(()=>({}));
+  return {ok:r.ok,status:r.status,j};
+}
 async function publish(){
-  const btn=document.getElementById('pubBtn');
-  let tok=sessionStorage.getItem('ghtok')||prompt('Paste your GitHub token (kept only in this browser tab, never uploaded):');
-  if(!tok)return; tok=tok.trim();
+  const btn=document.getElementById('pubBtn');const pw=sessionStorage.getItem('adminpw');
+  if(!pw){showLogin();return;}
   btn.disabled=true;const old=btn.textContent;btn.textContent='Publishing…';
-  const url='https://api.github.com/repos/anecdote-dev/anecdote-website/contents/Website%20Anecdote/content.json';
-  const headers={Authorization:'Bearer '+tok,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
   try{
-    let sha; const cur=await fetch(url+'?ref=main',{headers});
-    if(cur.status===401){sessionStorage.removeItem('ghtok');throw new Error('Token rejected — needs repo Contents write access.');}
-    if(cur.ok)sha=(await cur.json()).sha;
-    const enc=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
-    const put=await fetch(url,{method:'PUT',headers:{...headers,'Content-Type':'application/json'},body:JSON.stringify({message:'Update content.json via admin',content:enc,sha,branch:'main'})});
-    if(put.ok){sessionStorage.setItem('ghtok',tok);toast('Published — live in ~30s');}
-    else{if(put.status===401)sessionStorage.removeItem('ghtok');const e=await put.json().catch(()=>({}));throw new Error('GitHub '+put.status+(e.message?': '+e.message:''));}
+    const {ok,status,j}=await api({password:pw,content:data});
+    if(ok)toast('Published — live in ~30s');
+    else if(status===401){sessionStorage.removeItem('adminpw');toast('Session expired — log in again');showLogin();}
+    else throw new Error(j.error||('HTTP '+status));
   }catch(e){toast('Could not publish: '+e.message);}
   finally{btn.disabled=false;btn.textContent=old;}
 }
 document.getElementById('pubBtn').onclick=publish;
+// password login gate
+function showLogin(){document.getElementById('login').classList.remove('hidden');setTimeout(()=>document.getElementById('loginPw').focus(),50);}
+function hideLogin(){document.getElementById('login').classList.add('hidden');}
+async function doLogin(){
+  const pwEl=document.getElementById('loginPw'),err=document.getElementById('loginErr'),b=document.getElementById('loginBtn');
+  const pw=pwEl.value.trim();if(!pw){err.textContent='Enter your password.';return;}
+  b.disabled=true;b.textContent='Checking…';err.textContent='';
+  try{
+    const {ok,status,j}=await api({password:pw});
+    if(ok){sessionStorage.setItem('adminpw',pw);pwEl.value='';hideLogin();toast('Logged in');}
+    else if(status===401)err.textContent='Wrong password.';
+    else err.textContent=j.error||('Error '+status);
+  }catch(e){err.textContent='Cannot reach the server — is the site deployed with the publish function?';}
+  finally{b.disabled=false;b.textContent='Log in';}
+}
+document.getElementById('loginBtn').onclick=doLogin;
+document.getElementById('loginPw').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+if(sessionStorage.getItem('adminpw'))hideLogin();else showLogin();
 document.getElementById('resetBtn').onclick=()=>{if(confirm('Reset all fields to the original content?')){data=clone(DEFAULT);render();toast('Reset to defaults');}};
 document.getElementById('importBtn').onclick=()=>document.getElementById('fileIn').click();
 document.getElementById('fileIn').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{data=merge(DEFAULT,JSON.parse(r.result));render();toast('Imported');}catch(err){alert('Could not read that file: '+err.message);}};r.readAsText(f);};

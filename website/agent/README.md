@@ -22,7 +22,7 @@ live site reads at runtime. Nothing here touches `index.html`.
 ## Validate (manual)
 
 ```bash
-node "Website Anecdote/agent/validate-content.mjs"
+node "website/agent/validate-content.mjs"
 ```
 
 Exit 0 = safe to publish (warnings OK). Exit 1 = structural error — do **not** publish; a
@@ -30,7 +30,7 @@ malformed `content.json` silently drops the live site to its built-in fallback c
 
 ## Publish (after you approve)
 
-1. `node "Website Anecdote/agent/validate-content.mjs"`  → must pass.
+1. `node "website/agent/validate-content.mjs"`  → must pass.
 2. Commit the change to `content.json`.
 3. Once Vercel is connected to this repo, the push auto-deploys. *(Vercel setup pending.)*
 

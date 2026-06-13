@@ -2,7 +2,7 @@
 // Validates ../content.json before it is published.
 //   exit 0  -> structure OK (warnings are allowed)
 //   exit 1  -> structural error: do NOT publish (the live site would fall back to default copy)
-// Zero dependencies. Run: node "Website Anecdote/agent/validate-content.mjs"
+// Zero dependencies. Run: node "website/agent/validate-content.mjs"
 
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

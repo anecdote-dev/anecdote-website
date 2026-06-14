@@ -1,4 +1,12 @@
 {
+  "nav": {
+    "index": "Home",
+    "studio": "Studio",
+    "work": "Work",
+    "process": "Process",
+    "contact": "Contact",
+    "cta": "Start a Project"
+  },
   "hero": {
     "metaLeft": "VOL. 01 — FULL-SERVICE DIGITAL MARKETING",
     "metaRight": "JAKARTA · INDONESIA",

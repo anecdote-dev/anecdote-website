@@ -62,6 +62,9 @@ textarea{resize:vertical;min-height:70px;line-height:1.5}
 .mini{font-size:11px;font-weight:600;letter-spacing:.04em;padding:6px 12px;border-radius:7px;border:1px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer}
 .mini:hover{border-color:var(--clay);color:var(--clay)}
 .mini.add{align-self:flex-start;margin-top:2px}
+.imgctrl{display:flex;flex-direction:column;gap:10px}
+.imgprev{max-height:64px;max-width:190px;width:auto;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px}
+.imgrow{display:flex;gap:8px}
 /* toast + login */
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:100px;font-size:13px;opacity:0;transition:.3s;pointer-events:none;z-index:300}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -128,12 +131,20 @@ textarea{resize:vertical;min-height:70px;line-height:1.5}
 <div class="toast" id="toast"></div>
 
 <script>
-const DEFAULT={"hero": {"metaLeft": "VOL. 01 — FULL-SERVICE DIGITAL MARKETING", "metaRight": "JAKARTA · INDONESIA", "line1": "We make brands", "line2": "impossible", "line3": "to ignore.", "deck": "Personalized, full-service digital marketing — engineered in Jakarta, felt everywhere. We turn attention into measurable growth.", "cta1": "See the Work →", "cta2": "What We Do", "stats": [{"value": "Est. 2019", "label": "Studio"}, {"value": "150+", "label": "Campaigns"}, {"value": "50+", "label": "Brands"}]}, "marquee": ["Meta Ads", "Social", "Branding", "SEO", "Content", "E-commerce", "Web", "Influencer"], "manifesto": "Attention is the rarest thing on earth. We *capture* it, refine it, and hand it back to you as growth.", "services": {"title": "What we do", "items": [{"title": "Digital Advertising", "tag": "Performance, engineered.", "list": ["Meta Ads", "Search (SEM)", "SEO", "E-commerce Advertising", "Email Marketing"]}, {"title": "Brand Communication", "tag": "Stories that compound.", "list": ["Social Media Management", "Photography", "Video Production", "Branding", "Live Shopping"]}, {"title": "Consulting & PR", "tag": "Reputation as an asset.", "list": ["Influencer Management", "Online Reputation Management", "Marketing Strategy"]}]}, "work": {"items": [{"sector": "Health & Beauty", "metric": "+312%", "note": "Return on ad spend, delivered in the first 90 days."}, {"sector": "Food & Beverage", "metric": "4.2M", "note": "Organic reach from a single, tightly art-directed campaign."}, {"sector": "Property", "metric": "−47%", "note": "Cost-per-lead, cut while volume climbed."}, {"sector": "Retail", "metric": "72h", "note": "From launch to sold-out — momentum, engineered."}]}, "stats": [{"count": 150, "suffix": "+", "label": "Campaigns"}, {"count": 50, "suffix": "+", "label": "Clients"}, {"count": 5, "suffix": "+", "label": "Years"}, {"count": 3, "suffix": "", "label": "Service Pillars"}], "process": {"items": [{"k": "01", "title": "Extract", "text": "We dig into your market, your data, and your audience until the real opportunity surfaces."}, {"k": "02", "title": "Define", "text": "Strategy and creative concepting, sharpened until the idea is unmistakable."}, {"k": "03", "title": "Build", "text": "Campaigns built, shipped, and fully instrumented across every channel that matters."}, {"k": "04", "title": "Refine", "text": "Relentless optimization toward measurable, compounding growth. Never set-and-forget."}]}, "clients": [{"name": "CDR Bayer", "mark": "CB"}, {"name": "Redoxon", "mark": "RX"}, {"name": "Polytron", "mark": "PT"}, {"name": "UOB Bank", "mark": "UO"}, {"name": "Sari Rasa", "mark": "SR"}, {"name": "Nusantara", "mark": "NC"}, {"name": "Batik Prima", "mark": "BP"}, {"name": "Kopi Lokal", "mark": "KL"}, {"name": "Garda Tekno", "mark": "GT"}, {"name": "Mega Retail", "mark": "MR"}], "testimonial": {"quote": "They didn't just run our ads — they *reshaped* how the market sees us.", "author": "Marketing Lead · Enterprise Client", "note": "Representative placeholder — swap for a real attributed client quote before launch."}, "contact": {"title": "Ready to *grow?*", "email": "hello@anecdote.id", "whatsappLabel": "Chat with us", "whatsapp": "6281234567890", "instagram": "anecdote.id"}, "footer": {"colophon": "Crafted, not templated. A full-service digital marketing studio in Jakarta."}};
+const DEFAULT={"nav":{"index":"Index","studio":"Studio","work":"Work","process":"Process","contact":"Contact","cta":"Start a Project"},"hero": {"metaLeft": "VOL. 01 — FULL-SERVICE DIGITAL MARKETING", "metaRight": "JAKARTA · INDONESIA", "line1": "We make brands", "line2": "impossible", "line3": "to ignore.", "deck": "Personalized, full-service digital marketing — engineered in Jakarta, felt everywhere. We turn attention into measurable growth.", "cta1": "See the Work →", "cta2": "What We Do", "stats": [{"value": "Est. 2019", "label": "Studio"}, {"value": "150+", "label": "Campaigns"}, {"value": "50+", "label": "Brands"}]}, "marquee": ["Meta Ads", "Social", "Branding", "SEO", "Content", "E-commerce", "Web", "Influencer"], "manifesto": "Attention is the rarest thing on earth. We *capture* it, refine it, and hand it back to you as growth.", "services": {"title": "What we do", "items": [{"title": "Digital Advertising", "tag": "Performance, engineered.", "list": ["Meta Ads", "Search (SEM)", "SEO", "E-commerce Advertising", "Email Marketing"]}, {"title": "Brand Communication", "tag": "Stories that compound.", "list": ["Social Media Management", "Photography", "Video Production", "Branding", "Live Shopping"]}, {"title": "Consulting & PR", "tag": "Reputation as an asset.", "list": ["Influencer Management", "Online Reputation Management", "Marketing Strategy"]}]}, "work": {"items": [{"sector": "Health & Beauty", "metric": "+312%", "note": "Return on ad spend, delivered in the first 90 days."}, {"sector": "Food & Beverage", "metric": "4.2M", "note": "Organic reach from a single, tightly art-directed campaign."}, {"sector": "Property", "metric": "−47%", "note": "Cost-per-lead, cut while volume climbed."}, {"sector": "Retail", "metric": "72h", "note": "From launch to sold-out — momentum, engineered."}]}, "stats": [{"count": 150, "suffix": "+", "label": "Campaigns"}, {"count": 50, "suffix": "+", "label": "Clients"}, {"count": 5, "suffix": "+", "label": "Years"}, {"count": 3, "suffix": "", "label": "Service Pillars"}], "process": {"items": [{"k": "01", "title": "Extract", "text": "We dig into your market, your data, and your audience until the real opportunity surfaces."}, {"k": "02", "title": "Define", "text": "Strategy and creative concepting, sharpened until the idea is unmistakable."}, {"k": "03", "title": "Build", "text": "Campaigns built, shipped, and fully instrumented across every channel that matters."}, {"k": "04", "title": "Refine", "text": "Relentless optimization toward measurable, compounding growth. Never set-and-forget."}]}, "clients": [{"name": "CDR Bayer", "mark": "CB"}, {"name": "Redoxon", "mark": "RX"}, {"name": "Polytron", "mark": "PT"}, {"name": "UOB Bank", "mark": "UO"}, {"name": "Sari Rasa", "mark": "SR"}, {"name": "Nusantara", "mark": "NC"}, {"name": "Batik Prima", "mark": "BP"}, {"name": "Kopi Lokal", "mark": "KL"}, {"name": "Garda Tekno", "mark": "GT"}, {"name": "Mega Retail", "mark": "MR"}], "testimonial": {"quote": "They didn't just run our ads — they *reshaped* how the market sees us.", "author": "Marketing Lead · Enterprise Client", "note": "Representative placeholder — swap for a real attributed client quote before launch."}, "contact": {"title": "Ready to *grow?*", "email": "hello@anecdote.id", "whatsappLabel": "Chat with us", "whatsapp": "6281234567890", "instagram": "anecdote.id"}, "footer": {"colophon": "Crafted, not templated. A full-service digital marketing studio in Jakarta."}};
 let data=clone(DEFAULT);
 function clone(o){return JSON.parse(JSON.stringify(o));}
 function merge(a,b){ if(b===null||typeof b!=='object'||Array.isArray(b))return b===undefined?a:b; const o=Object.assign({},a); for(const k in b)o[k]=(a&&k in a)?merge(a[k],b[k]):b[k]; return o; }
 
 const SCHEMA=[
+ {t:'Navigation',f:[
+   {p:'nav.index',l:'Link 1 label'},
+   {p:'nav.studio',l:'Link 2 label'},
+   {p:'nav.work',l:'Link 3 label'},
+   {p:'nav.process',l:'Link 4 label'},
+   {p:'nav.contact',l:'Link 5 label'},
+   {p:'nav.cta',l:'Button label (Start a Project)'},
+ ]},
  {t:'Hero',f:[
    {p:'hero.metaLeft',l:'Top-left label'},
    {p:'hero.metaRight',l:'Top-right label'},
@@ -154,7 +165,7 @@ const SCHEMA=[
  {t:'Selected Work',f:[{p:'work.items',l:'Case studies',type:'objlist',fields:[{k:'sector',l:'Sector'},{k:'metric',l:'Big metric'},{k:'note',l:'Note',type:'textarea'}]}]},
  {t:'By the Numbers',f:[{p:'stats',l:'Counters',type:'objlist',fields:[{k:'count',l:'Number',type:'number'},{k:'suffix',l:'Suffix (e.g. +)'},{k:'label',l:'Label'}]}]},
  {t:'Process',f:[{p:'process.items',l:'Steps',type:'objlist',fields:[{k:'k',l:'No.'},{k:'title',l:'Title'},{k:'text',l:'Description',type:'textarea'}]}]},
- {t:'Clients',f:[{p:'clients',l:'Client badges',type:'objlist',fields:[{k:'name',l:'Name'},{k:'mark',l:'Monogram (2 letters)'}]}]},
+ {t:'Clients',f:[{p:'clients',l:'Client logos',type:'objlist',fields:[{k:'name',l:'Name'},{k:'logo',l:'Logo image',type:'image'},{k:'mark',l:'Monogram fallback (2 letters)'}]}]},
  {t:'Testimonial',f:[
    {p:'testimonial.quote',l:'Quote (use *asterisks* for accent)',type:'textarea'},
    {p:'testimonial.author',l:'Attribution'},
@@ -181,6 +192,7 @@ function control(obj,key,def){
   else if(t==='number'){const i=el('input');i.type='number';i.value=obj[key]!=null?obj[key]:0;i.oninput=()=>obj[key]=Number(i.value);w.append(i);}
   else if(t==='list'){const ta=el('textarea','listta');ta.value=(obj[key]||[]).join('\n');ta.oninput=()=>obj[key]=ta.value.split('\n').map(s=>s.trim()).filter(Boolean);w.append(ta);w.append(el('div','hint','One item per line'));}
   else if(t==='objlist'){w.append(objlist(obj,key,def));}
+  else if(t==='image'){w.append(imgctrl(obj,key));}
   else{const i=el('input');i.type='text';i.value=obj[key]||'';i.oninput=()=>obj[key]=i.value;w.append(i);}
   return w;
 }
@@ -201,6 +213,24 @@ function objlist(parent,key,def){
   }
   draw();return box;
 }
+function imgctrl(obj,key){
+  const box=el('div','imgctrl');
+  const prev=el('img','imgprev'); if(obj[key]){prev.src=obj[key];}else{prev.style.display='none';}
+  const lab=el('label','mini'); lab.textContent=obj[key]?'Replace':'Upload';
+  const fi=el('input');fi.type='file';fi.accept='image/png,image/jpeg,image/webp,image/svg+xml';fi.style.display='none';lab.append(fi);
+  const clr=el('button','mini');clr.textContent='Clear';clr.style.display=obj[key]?'':'none';
+  clr.onclick=()=>{obj[key]='';prev.removeAttribute('src');prev.style.display='none';clr.style.display='none';lab.firstChild.nodeValue='Upload';};
+  fi.onchange=async()=>{const f=fi.files[0];if(!f)return;try{const d=await downscale(f);obj[key]=d;prev.src=d;prev.style.display='';clr.style.display='';lab.firstChild.nodeValue='Replace';}catch(e){alert('Could not read that image.');}fi.value='';};
+  const row=el('div','imgrow');row.append(lab,clr);
+  box.append(prev,row);return box;
+}
+function downscale(file){return new Promise((res,rej)=>{
+  if(file.type==='image/svg+xml'){const fr=new FileReader();fr.onload=()=>res(fr.result);fr.onerror=rej;fr.readAsDataURL(file);return;}
+  const img=new Image();
+  img.onload=()=>{const max=320;let w=img.naturalWidth||1,h=img.naturalHeight||1;const sc=Math.min(1,max/Math.max(w,h));const cw=Math.max(1,Math.round(w*sc)),ch=Math.max(1,Math.round(h*sc));const cv=document.createElement('canvas');cv.width=cw;cv.height=ch;cv.getContext('2d').drawImage(img,0,0,cw,ch);let out;try{out=cv.toDataURL('image/webp',0.82);if(out.indexOf('image/webp')<0)out=cv.toDataURL('image/png');}catch(e){out=cv.toDataURL('image/png');}res(out);};
+  img.onerror=rej;
+  const fr=new FileReader();fr.onload=()=>{img.src=fr.result;};fr.onerror=rej;fr.readAsDataURL(file);
+});}
 
 let active=0;
 function selectSection(i){

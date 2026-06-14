@@ -24,13 +24,13 @@
     ]
   },
   "marquee": [
-    "Meta Ads",
-    "Social",
+    "Digital Ads",
+    "Social Media Management",
     "Branding",
     "SEO",
-    "Content",
+    "Content Creation",
     "E-commerce",
-    "Web",
+    "Website",
     "Influencer"
   ],
   "manifesto": "Attention is the rarest thing on earth. We *capture* it, refine it, and hand it back to you as growth.",
@@ -183,9 +183,9 @@
     }
   ],
   "testimonial": {
-    "quote": "They didn't just run our ads — they *reshaped* how the market sees us.",
+    "quote": "They didn't just run our ads they *reshaped* how the market sees us.",
     "author": "Marketing Lead · Enterprise Client",
-    "note": "Representative placeholder — swap for a real attributed client quote before launch."
+    "note": "Representative placeholder swap for a real attributed client quote before launch."
   },
   "contact": {
     "title": "Ready to *grow?*",

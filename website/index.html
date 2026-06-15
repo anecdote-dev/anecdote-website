@@ -38,6 +38,10 @@ img{max-width:100%;display:block}
   animation:grain .5s steps(2) infinite}
 @keyframes grain{0%{transform:translate(0,0)}50%{transform:translate(-3px,2px)}100%{transform:translate(2px,-2px)}}
 #progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:var(--clay)}
+.wa-fab{position:fixed;right:22px;bottom:22px;z-index:70;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(18,120,70,.34);transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.wa-fab svg{width:30px;height:30px;fill:#fff}
+.wa-fab:hover{transform:scale(1.08);box-shadow:0 12px 30px rgba(18,120,70,.42)}
+@media(max-width:768px){.wa-fab{right:16px;bottom:16px;width:52px;height:52px}.wa-fab svg{width:28px;height:28px}}
 .content{position:relative;z-index:2}
 
 /* cursor */
@@ -264,6 +268,9 @@ footer{border-top:1px solid var(--ink);padding:40px 0 50px}
 <canvas id="gl"></canvas>
 <div class="grain"></div>
 <div id="progress"></div>
+<a id="waFab" class="wa-fab" href="https://wa.me/6281234567890" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" data-h>
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.04 4C9.93 4 4.96 8.97 4.96 15.08c0 2.13.61 4.12 1.66 5.8L4.6 28l7.3-1.91a11 11 0 0 0 4.14.8h.01c6.11 0 11.08-4.97 11.08-11.08C27.13 8.97 22.15 4 16.04 4zm0 20.3h-.01a9.2 9.2 0 0 1-4.68-1.28l-.34-.2-3.47.91.93-3.38-.22-.35a9.18 9.18 0 0 1-1.41-4.91c0-5.08 4.14-9.21 9.21-9.21 2.46 0 4.77.96 6.51 2.7a9.14 9.14 0 0 1 2.7 6.51c0 5.08-4.14 9.21-9.23 9.21zm5.05-6.9c-.28-.14-1.64-.81-1.89-.9-.25-.09-.43-.14-.62.14-.18.28-.71.9-.87 1.08-.16.18-.32.2-.6.07-.28-.14-1.17-.43-2.22-1.37-.82-.73-1.38-1.64-1.54-1.92-.16-.28-.02-.43.12-.57.13-.13.28-.32.42-.49.14-.16.18-.28.28-.46.09-.18.05-.35-.02-.49-.07-.14-.62-1.5-.85-2.06-.22-.54-.45-.46-.62-.47-.16-.01-.35-.01-.53-.01s-.49.07-.74.35c-.25.28-.97.95-.97 2.31 0 1.36.99 2.68 1.13 2.86.14.18 1.95 2.98 4.73 4.18.66.29 1.18.46 1.58.59.66.21 1.27.18 1.74.11.53-.08 1.64-.67 1.87-1.32.23-.65.23-1.2.16-1.32-.07-.12-.25-.19-.53-.33z"/></svg>
+</a>
 
 <div class="c-ring" id="cRing"></div>
 <div class="c-dot" id="cDot"></div>
@@ -522,6 +529,7 @@ function applyContent(c){
   const links=$$('#contact .big-link');
   if(links[0]){ links[0].href='mailto:'+c.contact.email; links[0].querySelector('span').textContent=c.contact.email; }
   if(links[1]){ links[1].href='https://wa.me/'+c.contact.whatsapp; links[1].querySelector('span').textContent=c.contact.whatsappLabel||'Chat with us'; }
+  const waf=$('#waFab'); if(waf&&c.contact&&c.contact.whatsapp){ const num=String(c.contact.whatsapp).replace(/\D/g,''); if(num){waf.href='https://wa.me/'+num;waf.style.display='flex';} else {waf.style.display='none';} }
   const ig=$('.ig a'); if(ig){ ig.href='https://instagram.com/'+c.contact.instagram; ig.textContent='@'+c.contact.instagram; }
   const col=$('.colophon'); if(col)col.textContent=c.footer.colophon;
 }

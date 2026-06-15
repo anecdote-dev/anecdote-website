@@ -150,45 +150,199 @@
   },
   "clients": [
     {
-      "name": "CDR Bayer",
-      "mark": "CB",
-      "logo": "data:image/webp;base64,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"
+      "name": "Amplified",
+      "logo": "logos/amplified.png",
+      "mark": "AM"
+    },
+    {
+      "name": "Anlene",
+      "logo": "logos/anlene.png",
+      "mark": "AN"
+    },
+    {
+      "name": "Ardelia Lakel",
+      "logo": "logos/ardelia-lakel.png",
+      "mark": "AL"
+    },
+    {
+      "name": "BAV",
+      "logo": "logos/bav.png",
+      "mark": "BA"
+    },
+    {
+      "name": "BKA",
+      "logo": "logos/bka.png",
+      "mark": "BK"
+    },
+    {
+      "name": "Booboo",
+      "logo": "logos/booboo.png",
+      "mark": "BO"
+    },
+    {
+      "name": "BPI Indonesia",
+      "logo": "logos/bpi-indonesia.png",
+      "mark": "BI"
+    },
+    {
+      "name": "Bukanbukudiet",
+      "logo": "logos/bukanbukudiet.png",
+      "mark": "BU"
+    },
+    {
+      "name": "Buza",
+      "logo": "logos/buza.png",
+      "mark": "BU"
+    },
+    {
+      "name": "CDR",
+      "logo": "logos/cdr.png",
+      "mark": "CD"
+    },
+    {
+      "name": "Cfashion",
+      "logo": "logos/cfashion.png",
+      "mark": "CF"
+    },
+    {
+      "name": "Colou House",
+      "logo": "logos/colou-house.png",
+      "mark": "CH"
+    },
+    {
+      "name": "Corestudio",
+      "logo": "logos/corestudio.png",
+      "mark": "CO"
+    },
+    {
+      "name": "Exquise",
+      "logo": "logos/exquise.png",
+      "mark": "EX"
+    },
+    {
+      "name": "Exquise Cadeau",
+      "logo": "logos/exquise-cadeau.png",
+      "mark": "EC"
+    },
+    {
+      "name": "Good Pulse",
+      "logo": "logos/good-pulse.png",
+      "mark": "GP"
+    },
+    {
+      "name": "Hanny",
+      "logo": "logos/hanny.png",
+      "mark": "HA"
+    },
+    {
+      "name": "Happify",
+      "logo": "logos/happify.png",
+      "mark": "HA"
+    },
+    {
+      "name": "Hara",
+      "logo": "logos/hara.png",
+      "mark": "HA"
+    },
+    {
+      "name": "Istana",
+      "logo": "logos/istana.png",
+      "mark": "IS"
+    },
+    {
+      "name": "Jolie",
+      "logo": "logos/jolie.png",
+      "mark": "JO"
+    },
+    {
+      "name": "Lello Kids",
+      "logo": "logos/lello-kids.png",
+      "mark": "LK"
+    },
+    {
+      "name": "Mustika Ratu Canada",
+      "logo": "logos/mustika-ratu-canada.png",
+      "mark": "MR"
+    },
+    {
+      "name": "Mutant Indonesia",
+      "logo": "logos/mutant-indonesia.png",
+      "mark": "MI"
+    },
+    {
+      "name": "N2 Fashion",
+      "logo": "logos/n2-fashion.png",
+      "mark": "NF"
+    },
+    {
+      "name": "Naturale Kitchen",
+      "logo": "logos/naturale-kitchen.png",
+      "mark": "NK"
+    },
+    {
+      "name": "Nuence",
+      "logo": "logos/nuence.png",
+      "mark": "NU"
+    },
+    {
+      "name": "Ohmymats",
+      "logo": "logos/ohmymats.png",
+      "mark": "OH"
+    },
+    {
+      "name": "Perempuanbisa",
+      "logo": "logos/perempuanbisa.png",
+      "mark": "PE"
+    },
+    {
+      "name": "Plyfon",
+      "logo": "logos/plyfon.png",
+      "mark": "PL"
     },
     {
       "name": "Redoxon",
-      "mark": "RX"
+      "logo": "logos/redoxon.png",
+      "mark": "RE"
     },
     {
-      "name": "Polytron",
-      "mark": "PT"
+      "name": "Samitrayasa",
+      "logo": "logos/samitrayasa.png",
+      "mark": "SA"
     },
     {
-      "name": "UOB Bank",
+      "name": "Scotchbrite",
+      "logo": "logos/scotchbrite.png",
+      "mark": "SC"
+    },
+    {
+      "name": "She",
+      "logo": "logos/she.png",
+      "mark": "SH"
+    },
+    {
+      "name": "Sisters",
+      "logo": "logos/sisters.png",
+      "mark": "SI"
+    },
+    {
+      "name": "UOB",
+      "logo": "logos/uob.png",
       "mark": "UO"
     },
     {
-      "name": "Sari Rasa",
-      "mark": "SR"
+      "name": "Yaruki",
+      "logo": "logos/yaruki.png",
+      "mark": "YA"
     },
     {
-      "name": "Nusantara",
-      "mark": "NC"
+      "name": "Yurae Mart",
+      "logo": "logos/yurae-mart.png",
+      "mark": "YM"
     },
     {
-      "name": "Batik Prima",
-      "mark": "BP"
-    },
-    {
-      "name": "Kopi Lokal",
-      "mark": "KL"
-    },
-    {
-      "name": "Garda Tekno",
-      "mark": "GT"
-    },
-    {
-      "name": "Mega Retail",
-      "mark": "MR"
+      "name": "Yurae Official",
+      "logo": "logos/yurae-official.png",
+      "mark": "YO"
     }
   ],
   "testimonial": {

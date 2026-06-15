@@ -32,14 +32,19 @@
     ]
   },
   "marquee": [
-    "Digital Ads",
+    "Social Media Ads",
+    "E-commerce",
+    "SEM",
+    "SEO",
+    "Email Marketing",
     "Social Media Management",
     "Branding",
-    "SEO",
-    "Content Creation",
-    "E-commerce",
-    "Website",
-    "Influencer"
+    "Live Shopping",
+    "Photography",
+    "Videography",
+    "Web Development",
+    "Influencer",
+    "Reputation Management"
   ],
   "manifesto": "Attention is the rarest thing on earth. We *capture* it, refine it, and hand it back to you as growth.",
   "services": {
@@ -49,31 +54,32 @@
         "title": "Digital Advertising",
         "tag": "Performance, engineered.",
         "list": [
-          "Meta Ads",
-          "Search (SEM)",
-          "SEO",
-          "E-commerce Advertising",
+          "Social Media Advertising (Facebook, Instagram, TikTok)",
+          "E-commerce Advertising (Tokopedia, Shopee, TikTok Shop)",
+          "Search Engine Marketing",
+          "Search Engine Optimization",
           "Email Marketing"
         ]
       },
       {
-        "title": "Brand Communication",
+        "title": "Brand Communication & Creative",
         "tag": "Stories that compound.",
         "list": [
-          "Social Media Management",
-          "Photography",
-          "Video Production",
+          "Social Media Management (LinkedIn, Instagram, Facebook, TikTok)",
           "Branding",
-          "Live Shopping"
+          "Live Shopping (Shopee, TikTok, Tokopedia)",
+          "Photography",
+          "Videography",
+          "Website Development",
+          "Collateral Design"
         ]
       },
       {
-        "title": "Consulting & PR",
+        "title": "Consulting & Public Relation",
         "tag": "Reputation as an asset.",
         "list": [
           "Influencer Management",
-          "Online Reputation Management",
-          "Marketing Strategy"
+          "Online Reputation Management (Google Review)"
         ]
       }
     ]

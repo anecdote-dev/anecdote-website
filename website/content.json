@@ -26,25 +26,20 @@
         "label": "Campaigns"
       },
       {
-        "value": "50+",
+        "value": "100+",
         "label": "Brands"
       }
     ]
   },
   "marquee": [
-    "Social Media Ads",
-    "E-commerce",
-    "SEM",
-    "SEO",
-    "Email Marketing",
+    "Digital Ads",
     "Social Media Management",
     "Branding",
-    "Live Shopping",
-    "Photography",
-    "Videography",
-    "Web Development",
-    "Influencer",
-    "Reputation Management"
+    "SEO",
+    "Content Creation",
+    "E-commerce",
+    "Website",
+    "Influencer"
   ],
   "manifesto": "Attention is the rarest thing on earth. We *capture* it, refine it, and hand it back to you as growth.",
   "services": {
@@ -54,32 +49,31 @@
         "title": "Digital Advertising",
         "tag": "Performance, engineered.",
         "list": [
-          "Social Media Advertising (Facebook, Instagram, TikTok)",
-          "E-commerce Advertising (Tokopedia, Shopee, TikTok Shop)",
-          "Search Engine Marketing",
-          "Search Engine Optimization",
+          "Meta Ads",
+          "Search (SEM)",
+          "SEO",
+          "E-commerce Advertising",
           "Email Marketing"
         ]
       },
       {
-        "title": "Brand Communication & Creative",
+        "title": "Brand Communication",
         "tag": "Stories that compound.",
         "list": [
-          "Social Media Management (LinkedIn, Instagram, Facebook, TikTok)",
-          "Branding",
-          "Live Shopping (Shopee, TikTok, Tokopedia)",
+          "Social Media Management",
           "Photography",
-          "Videography",
-          "Website Development",
-          "Collateral Design"
+          "Video Production",
+          "Branding",
+          "Live Shopping"
         ]
       },
       {
-        "title": "Consulting & Public Relation",
+        "title": "Consulting & PR",
         "tag": "Reputation as an asset.",
         "list": [
           "Influencer Management",
-          "Online Reputation Management (Google Review)"
+          "Online Reputation Management",
+          "Marketing Strategy"
         ]
       }
     ]

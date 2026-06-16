@@ -160,7 +160,7 @@ nav.scrolled{background:rgba(234,229,220,.85);backdrop-filter:blur(8px);-webkit-
 
 /* ============================== WORK ============================== */
 #work{position:relative}
-.work-head{padding:clamp(90px,13vw,150px) 0 0}
+.work-head{padding-top:clamp(90px,13vw,150px)}
 .work-stage{height:100vh;display:flex;align-items:center;overflow:hidden}
 .work-track{display:flex;gap:28px;padding:0 clamp(22px,5vw,80px);will-change:transform}
 .case{flex:0 0 min(80vw,520px);background:var(--card);border:1px solid var(--line);border-radius:4px;
@@ -252,6 +252,12 @@ footer{border-top:1px solid var(--ink);padding:40px 0 50px}
   .stat-grid{grid-template-columns:1fr 1fr;gap:40px 20px}.stat{border-left:none;padding-left:0}
   .scrollcue{display:none}.foot-grid{grid-template-columns:1fr}
   body{cursor:auto}.c-dot,.c-ring{display:none}
+  .sec{padding:70px 0}
+  .big-link{flex-direction:column;align-items:flex-start;gap:6px;padding:22px 0;font-size:clamp(24px,6.4vw,32px);line-height:1.15}
+  .big-link>span:first-child{word-break:break-word;max-width:100%}
+  .big-link:hover{padding-left:0}
+  .mono{min-width:150px;height:70px;padding:0 18px;gap:9px;font-size:18px}
+  .mono-logo{max-height:36px;max-width:110px}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}

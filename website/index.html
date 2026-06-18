@@ -497,12 +497,14 @@ footer{border-top:1px solid var(--ink);padding:40px 0 50px}
 </script>
 
 <!-- MAIN -->
+<script defer src="lib/three.min.js"></script>
+<script defer src="lib/gsap.min.js"></script>
+<script defer src="lib/ScrollTrigger.min.js"></script>
+<script defer src="lib/lenis.min.js"></script>
+<script defer src="lib/split-type.min.js"></script>
 <script type="module">
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
-import { gsap } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js";
-import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js";
-import Lenis from "https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.mjs";
-import SplitType from "https://cdn.jsdelivr.net/npm/split-type@0.3.4/+esm";
+/* Libraries vendored locally (loaded via <script defer> above) and referenced as globals — same-origin, fast, no external CDN round-trips */
+const THREE = window.THREE, gsap = window.gsap, ScrollTrigger = window.ScrollTrigger, Lenis = window.Lenis, SplitType = window.SplitType;
 
 const reduce=document.documentElement.classList.contains('reduce');
 const noWebGL=document.documentElement.classList.contains('nowebgl');

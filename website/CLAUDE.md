@@ -14,7 +14,7 @@ A single-page marketing website for **PT. Anecdote Marketing Indonesia** (anecdo
 
 ## Tech stack (keep it this way)
 - Hand-authored **HTML5 + custom CSS + vanilla JS (ES module)**. No frameworks, no build step. **No WordPress / page builders.**
-- 3D + motion via CDN (ESM): **three.js r160**, **GSAP 3 + ScrollTrigger**, **Lenis** (smooth scroll), **SplitType**.
+- 3D + motion: **three.js r160**, **GSAP 3 + ScrollTrigger**, **Lenis** (smooth scroll), **SplitType** — **vendored locally in `lib/`** (UMD builds loaded via `<script defer>` and referenced as globals; do NOT switch back to CDN ESM imports — that gated the preloader on a ~6s external fetch).
 - Fonts via Google Fonts: **Fraunces** (display serif) + **Archivo** (UI/labels).
 - Runs as a static site; deploy target is **Vercel** (static, no config needed).
 
@@ -55,4 +55,4 @@ A "data sphere": ~9,500 GPU points on a Fibonacci sphere with simplex-noise brea
 - Add a password gate to `admin.html` (currently unauthenticated).
 - Swap in real client logos (currently text monogram badges).
 - Fill in real contact details, testimonial, and case metrics.
-- Optional: add Bahasa Indonesia copy / language toggle; vendor the CDN libraries locally for zero external dependencies.
+- Optional: add Bahasa Indonesia copy / language toggle.

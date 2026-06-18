@@ -1,6 +1,12 @@
 {
   "routes": [
     {
+      "src": "^/admin\\.html$",
+      "missing": [{ "type": "host", "value": "admin.anecdote.id" }],
+      "status": 308,
+      "headers": { "Location": "https://admin.anecdote.id/" }
+    },
+    {
       "src": "^/$",
       "has": [{ "type": "host", "value": "admin.anecdote.id" }],
       "dest": "/admin.html"

@@ -1,9 +1,10 @@
 {
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
+      "src": "^/$",
       "has": [{ "type": "host", "value": "admin.anecdote.id" }],
-      "destination": "/admin.html"
-    }
+      "dest": "/admin.html"
+    },
+    { "handle": "filesystem" }
   ]
 }

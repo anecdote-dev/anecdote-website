@@ -364,6 +364,12 @@
     "instagram": "anecdote.id"
   },
   "footer": {
-    "colophon": "Crafted, not templated. A full-service digital marketing studio in Jakarta."
+    "colophon": "Crafted, not templated. A full-service digital marketing studio in Jakarta.",
+    "studioName": "PT. Anecdote Marketing",
+    "studioLocation": "Jakarta, Indonesia",
+    "email": "hello@anecdote.id",
+    "instagram": "anecdote.id",
+    "legalName": "PT. Anecdote Marketing Indonesia",
+    "established": "Est. 2019 · Jakarta"
   }
 }

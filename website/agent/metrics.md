@@ -4,7 +4,7 @@ The **monthly performance & maintenance** pass of the update agent reads this fi
 Update the numbers, save, then run the agent (or let the scheduled run pick it up).
 Leave a "New value" blank or write `no change` to keep what's on the site.
 
-_Last updated: 2026-06-12 by ____________
+_Last updated: 2026-06-22 by the update agent (monthly maintenance pass)_
 
 ---
 
@@ -31,7 +31,7 @@ with real ones when you have them. Format: Sector — Metric — one-line note.
 
 ## Maintenance checklist (the agent will flag these too)
 
-- [ ] **WhatsApp number** (`contact.whatsapp`) — still the placeholder `6281234567890`.
+- [x] **WhatsApp number** (`contact.whatsapp`) — set to the real number `6281717580096`. ✓ done
 - [ ] **Testimonial** (`testimonial`) — still a placeholder; real attributed client quote?
 - [ ] **New clients** to add to the logo wall (`clients[]`)?
 - [ ] **Seasonal / campaign messaging** to reflect this month? (note it here if so)
